@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ishanswers 2</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container">
+  <%= link_to "About", about_us_path, class:"btn btn-default nav-btn", id:"about" %>
+  <%= link_to "Faq", faq_path, class:"btn btn-default nav-btn", id:"faq" %>
+  <%= link_to "Help", help_path, class:"btn btn-default nav-btn", id:"help" %>
+  <%= link_to "New Question", new_question_path, class:"btn btn-default nav-btn", id:"new_question" %>
+  <%= link_to "Question Index", questions_path, class:"btn btn-default nav-btn", id:"new_question" %>
+
+  <% if flash[:error] || flash[:notice] %>
+    <h4> <%= flash[:error] || flash[:notice] %> </h3>
+  <% end %>
+
+  <%= yield %>
+</div>
+</body>
+</html>

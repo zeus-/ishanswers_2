@@ -1,0 +1,11 @@
+<h1> Listing all Questions </h1>
+<p> questions#index created through resources :questions by the routes file </p>
+<%= link_to "Create a new Q", new_question_path, class: "btn btn-primary" %>
+
+<% @questions.each do |question| %>
+  <h2> <%= link_to question.title, question_path(question) %></h2>
+  <%= question.description %>
+  <%= question.title %>
+  <p> Created on:  <%= formatted_date(question.created_at) %></p>
+  <% end %>
+

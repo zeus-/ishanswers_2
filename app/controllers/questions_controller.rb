@@ -23,6 +23,8 @@ class QuestionsController < ApplicationController
 
   def show
     # renders the show page for the question passed
+    @answer = Answer.new
+    @answers = @question.answers.ordered_by_creation
   end
 
   def edit

@@ -1,17 +1,22 @@
 Ishanswers2::Application.routes.draw do
   
+  resources :comments
+
   root 'questions#index'
   get '/about_us' => 'home#about'
   get '/faq' => 'home#faq'
   get '/help' => 'home#help'
   resources :questions do
+    resources :answers
     member do
       post :vote_up
       post :vote_down
     end
     post :search, on: :collection
   end
-
+  resources :answers, only: [] do
+    resources :comments
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

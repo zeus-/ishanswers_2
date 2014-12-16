@@ -6,6 +6,9 @@
   = @question.description
 %p
   Posted on: #{formatted_date(@question.created_at)}
+  = succeed "Vote" do
+    %br/
+  Count: #{@question.vote_count}
   %br/
   - if session[:has_voted]
     %p Thanks for voting, friend
@@ -13,9 +16,24 @@
     = link_to "Vote up", vote_up_question_path(@question), method: :post
     |  #{link_to "Vote down", vote_down_question_path(@question), method: :post}
 %p
-  Vote Count: #{@question.vote_count}
-%p
   = link_to "Edit", edit_question_path(@question)
   |
   \#{link_to "Delete", @question, method: :delete, data: {confirm: "U sure"}}
 %p= link_to "Index", questions_path
+
+%h2 Add an answer 
+-if @answer.errors.any?
+  %ul
+    -@answer.errors.full_messages.each do |m|
+      %li
+        =m 
+= form_for [@question, @answer] do |f|
+  = f.text_area :body
+  %br
+  = f.submit "Sumbit an answer", class:"btn btn-primary"
+%hr
+=render @answers
+-# that one line does all this work!
+-#-@answers.each do |answer|
+-#  =render "/answers/answer", answer: answer
+  

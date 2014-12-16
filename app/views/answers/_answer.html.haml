@@ -1,0 +1,7 @@
+.well
+  .row
+    .col-sm-8.col-md-8.col-xs-8
+      %p= answer.body
+      %p= answer.created_at
+    .col-sm-4.col-md-4.col-xs-4
+      .pull-right= button_to "Delete", question_answer_path(@question, answer), method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure"} 

@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
+  has_many :answers, dependent: :destroy
   validates :title, presence: true, uniqueness: true 
-  validates_presence_of :description, message: "must have a description"
+  validates_presence_of :description, message: "must be present"
   
   default_scope order("title ASC")
   scope :recent, lambda { |x| order("created_at DESC").limit(x) }

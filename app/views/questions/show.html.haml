@@ -1,0 +1,21 @@
+%h1 Individual Questions Show Page
+%p get "/questions/:id" => "questions#show" created through resources :questions in the routes file
+%h1
+  = @question.title
+%p
+  = @question.description
+%p
+  Posted on: #{formatted_date(@question.created_at)}
+  %br/
+  - if session[:has_voted]
+    %p Thanks for voting, friend
+  - else
+    = link_to "Vote up", vote_up_question_path(@question), method: :post
+    |  #{link_to "Vote down", vote_down_question_path(@question), method: :post}
+%p
+  Vote Count: #{@question.vote_count}
+%p
+  = link_to "Edit", edit_question_path(@question)
+  |
+  \#{link_to "Delete", @question, method: :delete, data: {confirm: "U sure"}}
+%p= link_to "Index", questions_path

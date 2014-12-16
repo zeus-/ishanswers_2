@@ -1,0 +1,39 @@
+!!!
+%html
+  %head
+    %title Ishanswers 2
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+  #wrap
+    %nav.navbar.navbar-inverse{:role => "navigation"}
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+          %a.navbar-brand{:href=> "#"} 
+            %strong 
+              %bold Ishanswers 2
+        #navbar.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li
+              = link_to "About", about_us_path, id:"about"
+            %li
+              = link_to "Faq", faq_path, id:"faq"
+            %li
+              = link_to "Help", help_path, id:"help"
+            %li
+              = link_to "New Question", new_question_path, id:"new_question"
+            %li
+              = link_to "Question Index", questions_path, id:"new_question"
+
+    .container
+      - if flash[:error] || flash[:notice]
+        %h4
+          = flash[:error] || flash[:notice]
+      = yield
+    #footer
+      .container 
+        %p Copyright 2014 Ishanswers 

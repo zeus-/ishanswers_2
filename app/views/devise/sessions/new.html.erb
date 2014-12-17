@@ -1,0 +1,23 @@
+<h2>Log in, friend</h2>
+
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div style="width: 50%">
+      <%= f.label :email %> <br/>
+      <%= f.email_field :email, autofocus: true, class: "form-control" %>
+    </div>
+    <div style="width: 50%">
+      <%= f.label :password %> <br/>
+      <%= f.password_field :password, required: true, class: "form-control" %>
+    </div>
+      <% if devise_mapping.rememberable? %> 
+        <div style="width: 50%">
+          <%= f.check_box :remember_me  %>
+          <%= f.label :remember_me, class: "form-control" %>
+        </div>
+      <% end %>
+    <div style="width: 50%">
+      <%= f.submit "Sign in", class: "btn btn-primary" %>
+      <%= render "devise/shared/links" %>
+    </div>
+    <br/>
+<% end %>

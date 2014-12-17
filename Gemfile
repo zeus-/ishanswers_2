@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 ruby '2.1.2'
-gem 'rails', '4.0.8'
+gem 'rails'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets

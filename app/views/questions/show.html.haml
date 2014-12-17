@@ -9,12 +9,25 @@
   = succeed "Vote" do
     %br/
   Count: #{@question.vote_count}
+  %br
+  -if @question.categories.present?
+    Categories (#{ @question.categories.count }):
+    = @question.categories.map(&:title).join(", ")
   %br/
-  - if session[:has_voted]
-    %p Thanks for voting, friend
-  - else
-    = link_to "Vote up", vote_up_question_path(@question), method: :post
-    |  #{link_to "Vote down", vote_down_question_path(@question), method: :post}
+  -# if session[:has_voted]
+  -# %p Thanks for voting, friend
+  -# else
+  -#  = link_to "Vote up", vote_up_question_path(@question), method: :post
+  -#  |  #{link_to "Vote down", vote_down_question_path(@question), method: :post}
+  -if @vote.persisted?
+    =button_to "Undo Vote", [@question, @vote], method: :delete, class: "btn btn-danger"
+  -else
+    =form_for [@question, @vote] do |f|
+      =f.hidden_field :is_up, value: true
+      =f.submit "Vote Up", class: "btn btn-default"
+    =form_for [@question, @vote] do |f| 
+      =f.hidden_field :is_up, value: false
+      =f.submit "Vote Down", class: "btn btn-default"
 %p
   = link_to "Edit", edit_question_path(@question)
   |

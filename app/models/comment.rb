@@ -1,5 +1,3 @@
 class Comment < ActiveRecord::Base
-  belongs_to :answers
-  validates_presence_of :body
-  scope :ordered_by_creation, -> { order("created_at DESC") } 
+  belongs_to :answer
 end

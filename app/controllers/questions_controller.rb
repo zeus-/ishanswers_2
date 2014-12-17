@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   
-  before_action :find_q, only: [:show, :edit, :update, :destroy, :vote_up, :vote_down]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :find_q, only: [:edit, :update, :destroy, :vote_up, :vote_down]
   def index    
     @questions = Question.all
   end
@@ -12,7 +13,8 @@ class QuestionsController < ApplicationController
 
   def create    
     # handles the action create when pressing submit on the new Q page
-    @question = Question.new(question_params)
+    #@question = Question.new(question_params)
+     @question = current_user.questions.new(question_params)
     if @question.save
       redirect_to questions_path, notice: "Your Q was created successfully"
     else
@@ -23,8 +25,10 @@ class QuestionsController < ApplicationController
 
   def show
     # renders the show page for the question passed
+    @question = Question.find(params[:id] || params[:question_id])
     @answer = Answer.new
     @answers = @question.answers.ordered_by_creation
+    @vote = current_user.vote_for(@question) || Vote.new
   end
 
   def edit
@@ -49,23 +53,25 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def vote_up
-    @question.increment!(:vote_count)
-    session[:has_voted] = true
-    redirect_to @question
-  end
+  #def vote_up
+   # @question.increment!(:vote_count)
+   # session[:has_voted] = true
+   # redirect_to @question
+  #end
 
-  def vote_down
-    @question.decrement!(:vote_count)
-    session[:has_voted] = true
-    redirect_to @question
-  end
+  #def vote_down
+   # @question.decrement!(:vote_count)
+   # session[:has_voted] = true
+   # redirect_to @question
+  # end
 
   private
     def question_params
-      question_params = params.require(:question).permit([:title, :description])
+      question_params = params.require(:question).permit([:title, :description, {category_ids: []}])
     end
     def find_q
-      @question = Question.find(params[:id])
+     # @question = Question.find(params[:id])
+       @question = current_user.questions.find_by_id(params[:id])
+       redirect_to root_path, alert: "Access denied, foo" unless @question
     end
 end

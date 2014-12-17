@@ -441,7 +441,7 @@ DEPENDENCIES
   paperclip (~> 4.1)
   pg
   quiet_assets
-  rails (= 4.0.8)
+  rails
   rmagick
   rspec-activemodel-mocks
   rspec-its (~> 1.0.0.pre)

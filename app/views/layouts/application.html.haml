@@ -28,11 +28,20 @@
               = link_to "New Question", new_question_path, id:"new_question"
             %li
               = link_to "Question Index", questions_path, id:"new_question"
-
+          .navbar-right
+            -if user_signed_in?
+              %p
+              Hello
+              = current_user.first_name
+              = link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-default"
+            -else
+              %p
+              = link_to "Sign in", new_user_session_path, class: "btn btn-primary"
+              
     .container
-      - if flash[:error] || flash[:notice]
+      - if flash[:alert] || flash[:notice]
         %h4
-          = flash[:error] || flash[:notice]
+          = flash[:alert] || flash[:notice]
       = yield
     #footer
       .container 

@@ -5,4 +5,8 @@
   .form-field
     = f.label :description 
     = f.text_field :description, class: 'form-control' 
+  = f.collection_check_boxes :category_ids, Category.order("title"), :id, :title
+  %br
   = f.submit (@question.persisted? ? "Update" : "Save"), class: "btn btn-default"
+  %br
+  %br

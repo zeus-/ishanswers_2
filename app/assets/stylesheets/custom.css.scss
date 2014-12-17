@@ -1,4 +1,34 @@
 @import 'bootstrap';
+/*my lesson on Sass */
+@mixin border-radius_or_sum_attr($var) {
+  -webkit-border-radius: $var;
+  -moz-border-radius: $var;
+  -ms-border-radius: $var;
+   border-radius: $var;
+}
+#put_ur_css_selector_hurr { 
+  @include border-radius_or_sum_attr(30px);
+}
+/* or @extend to another selector attr's of another selector and add more attrs!*/ 
+$blue: blue;
+#put_ur_css_selector_hurr {
+  background-color: $blue;
+}
+
+.btn.btn-primary {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+.btn:hover {
+    background-color: grey;
+  }
+.container {
+   color: black;
+    a {
+      text-decoration: underline;
+   }
+ }
 body {
   height: 100%;
   /* The html and body elements cannot have any padding or margin. */
@@ -16,8 +46,6 @@ body {
 #push,
 #footer {
   height: 60px;
-}
-#footer {
   background-color: #f5f5f5;
 }
 
@@ -30,7 +58,3 @@ body {
     padding-right: 20px;
   }
 }
-
-
-
-

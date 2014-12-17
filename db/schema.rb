@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216053120) do
+ActiveRecord::Schema.define(version: 20141217043207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,18 +21,45 @@ ActiveRecord::Schema.define(version: 20141216053120) do
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
+  add_index "answers", ["user_id"], name: "index_answers_on_user_id", using: :btree
 
-  create_table "comments", force: true do |t|
-    t.text     "body"
-    t.integer  "answers_id"
+  create_table "categories", force: true do |t|
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["answers_id"], name: "index_comments_on_answers_id", using: :btree
+  create_table "categorizations", force: true do |t|
+    t.integer  "category_id"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id", using: :btree
+  add_index "categorizations", ["question_id"], name: "index_categorizations_on_question_id", using: :btree
+
+  create_table "comments", force: true do |t|
+    t.text     "body"
+    t.integer  "answer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["answer_id"], name: "index_comments_on_answer_id", using: :btree
+
+  create_table "question_details", force: true do |t|
+    t.text     "notes"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "question_details", ["question_id"], name: "index_question_details_on_question_id", using: :btree
 
   create_table "questions", force: true do |t|
     t.string   "title"
@@ -41,8 +68,41 @@ ActiveRecord::Schema.define(version: 20141216053120) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "vote_count",  default: 0
+    t.integer  "user_id"
   end
 
   add_index "questions", ["title"], name: "index_questions_on_title", using: :btree
+  add_index "questions", ["user_id"], name: "index_questions_on_user_id", using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "votes", force: true do |t|
+    t.boolean  "is_up"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["question_id"], name: "index_votes_on_question_id", using: :btree
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
 end

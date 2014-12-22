@@ -1,5 +1,6 @@
 Ishanswers2::Application.routes.draw do
   
+
   devise_for :users
   resources :comments
 
@@ -8,6 +9,7 @@ Ishanswers2::Application.routes.draw do
   get '/faq' => 'home#faq'
   get '/help' => 'home#help'
   resources :questions do
+    resources :favorites, only: [:create, :destroy]
     resources :votes, only: [:create, :update, :destroy]
     resources :answers
     #member do

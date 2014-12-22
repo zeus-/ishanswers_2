@@ -9,7 +9,9 @@ class Question < ActiveRecord::Base
   
   has_many :votes, dependent: :destroy
   has_many :voted_users, through: :votes, source: :user
-  
+ 
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_users, through: :favorites, source: :user
   validates :title, presence: true, uniqueness: true 
   validates_presence_of :description, message: "must be present"
   

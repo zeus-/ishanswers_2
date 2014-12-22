@@ -4,6 +4,7 @@ class VotesController < ApplicationController
   def create
     @vote = @question.votes.new(vote_params)
     @vote.user = current_user
+    @vote.is_up? ? @question.increment!(:vote_count) : @question.decrement!(:vote_count) 
     if @vote.save
       redirect_to @question, notice: "Thanks for voting, friend"
     else
@@ -13,6 +14,7 @@ class VotesController < ApplicationController
   
   def destroy
     @vote = current_user.votes.find(params[:id])
+    @vote.is_up? ?  @question.decrement!(:vote_count) : @question.increment!(:vote_count)
     if  @vote.destroy
       redirect_to @question, notice: "Vote removed!"
     else

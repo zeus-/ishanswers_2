@@ -1,38 +1,47 @@
-%h1 Individual Questions Show Page
+%h2 Individual Questions Show Page
 %p get "/questions/:id" => "questions#show" created through resources :questions in the routes file
-%h1
+%h2
   = @question.title
 %p
-  = @question.description
+  %b
+    = @question.description
 %p
   Posted on: #{formatted_date(@question.created_at)}
-  = succeed "Vote" do
-    %br/
-  Count: #{@question.vote_count}
-  %br
   -if @question.categories.present?
     Categories (#{ @question.categories.count }):
     = @question.categories.map(&:title).join(", ")
   %br/
+  = link_to "Edit", edit_question_path(@question)
+  |
+  \#{link_to "Delete", @question, method: :delete, data: {confirm: "U sure"}}
+  |
+  \#{link_to "Index", questions_path}
+  %br/
+  = succeed "Vote" do
+    %br/
+  Count: #{@question.vote_count}
+  %br
+  -if @question.favorited_users.present?
+    Favorited users: #{ @question.favorited_users.map(&:full_name).join(", ") }
   -# if session[:has_voted]
   -# %p Thanks for voting, friend
   -# else
   -#  = link_to "Vote up", vote_up_question_path(@question), method: :post
   -#  |  #{link_to "Vote down", vote_down_question_path(@question), method: :post}
-  -if @vote.persisted?
+  -if @vote.persisted? 
     =button_to "Undo Vote", [@question, @vote], method: :delete, class: "btn btn-danger"
   -else
     =form_for [@question, @vote] do |f|
       =f.hidden_field :is_up, value: true
-      =f.submit "Vote Up", class: "btn btn-default"
+      =f.submit "Vote Up", class: "btn btn-default", id: "vote-btn"
     =form_for [@question, @vote] do |f| 
-      =f.hidden_field :is_up, value: false
-      =f.submit "Vote Down", class: "btn btn-default"
+      \#{f.hidden_field :is_up, value: false }
+      \#{f.submit "Vote Down", class: "btn btn-default", id: "vote-btn"}
 %p
-  = link_to "Edit", edit_question_path(@question)
-  |
-  \#{link_to "Delete", @question, method: :delete, data: {confirm: "U sure"}}
-%p= link_to "Index", questions_path
+  -if @favorite.persisted?
+    =button_to "Unfavorite", question_favorite_path(@question, @favorite), method: :delete, class: "btn btn-info"
+  -else
+    =button_to "Favorite", question_favorites_path(@question), class: "btn btn-info", method: :post 
 
 %h2 Add an answer 
 -if @answer.errors.any?

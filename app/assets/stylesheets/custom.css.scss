@@ -23,6 +23,20 @@ $blue: blue;
 .btn:hover {
     background-color: grey;
   }
+.btn.btn-danger {
+  width: 50%;
+}
+.btn.btn-info {
+  width: 50%;
+}
+#vote-btn {
+  background-color: #f4e0c7;
+  height: 20px;
+  width: 50%;
+  font-size: 0.8em;
+  font-weight: bold;
+  display: inline !important;
+}
 .container {
    color: black;
     a {

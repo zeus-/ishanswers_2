@@ -28,7 +28,14 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id] || params[:question_id])
     @answer = Answer.new
     @answers = @question.answers.ordered_by_creation
-    @vote = current_user.vote_for(@question) || Vote.new
+    #prevent undefined method `vote_for' for nil:NilClass when user is not signed in
+    if user_signed_in? 
+      @vote = current_user.vote_for(@question) || Vote.new 
+      @favorite = current_user.favorite_for(@question) || Favorite.new
+    else
+      @vote = Vote.new
+      @favorite = Favorite.new
+    end
   end
 
   def edit

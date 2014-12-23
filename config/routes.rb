@@ -1,8 +1,6 @@
 Ishanswers2::Application.routes.draw do
-  
 
   devise_for :users
-  resources :comments
 
   root 'questions#index'
   get '/about_us' => 'home#about'
@@ -19,7 +17,7 @@ Ishanswers2::Application.routes.draw do
     post :search, on: :collection
   end
   resources :answers, only: [] do
-    resources :comments
+    resources :comments, only: [:create, :destroy] 
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

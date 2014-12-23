@@ -5,19 +5,29 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
-    if @answer.save
-      redirect_to @question, notice: "Answer created successfully"
-    else
-      redirect_to @question, notice: "Please correct your answer"
+    respond_to do |format|
+      if @answer.save
+        #Ishanswers2Mailer.notify_question_owner(@answer).deliver
+        Ishanswers2Mailer.delay.notify_question_owner(@answer)
+        format.html { redirect_to @question, notice: "Answer created successfully" }
+        format.js { render }
+      else
+        format.html { redirect_to @question, notice: "Please correct your answer" }
+        format.js { render js: "alert('Error, friend');" }
+      end
     end
     #code broke when implementibg partial render @answers in view :(
   end
   def destroy
     @answer = @question.answers.find(params[:id])
-    if @answer.user == current_user && @answer.destroy
-      redirect_to @question, notice: "Answer deleted!"
-    else
-      redirect_to @question, alert: "We had trouble deleting this answer"
+    respond_to do |format| 
+      if @answer.user == current_user && @answer.destroy
+        format.html { redirect_to @question, notice: "Answer deleted!" }
+        format.js { render }
+      else
+        format.html { redirect_to @question, alert: "We had trouble deleting this answer" } 
+        format.js { render js: "alert('you cant delete dis, friend');" }
+      end
     end
   end
   private

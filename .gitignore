@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+# Ignore mailer variables
+/config/initializers/email_vars.rb
+
 # Ignore other unneeded files.
 database.yml
 doc/

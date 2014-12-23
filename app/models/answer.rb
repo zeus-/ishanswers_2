@@ -5,5 +5,10 @@ class Answer < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   validates_presence_of :body
   scope :ordered_by_creation, -> { order("created_at DESC") } 
+  before_save :capitalize
+  
+  def capitalize
+    self.body.capitalize!
+  end
 
 end

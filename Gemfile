@@ -59,6 +59,7 @@ group :development do
   gem 'letter_opener'
   gem 'interactive_editor'
   gem 'awesome_print'
+  gem 'factory_girl_rails'
 end
 group :test do
   gem 'capybara-webkit'

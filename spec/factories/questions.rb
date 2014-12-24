@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :question do
-    title Faker::Company.bs
+    sequence(:title) { |number| "#{Faker::Company.bs} #{number}" }
     description Faker::Lorem.sentence
   end
 end

@@ -1,17 +1,28 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
-  def create
+ before_action :authenticate_user!
+   def create
     @answer = Answer.find(params[:answer_id])
-    @comment = @answer.comments.new(cmnt_params)
+    @comment = @answer.comments.create(c_params)
     if @comment.save
-      redirect_to @answer.question, notice: "Cmnt created!"
+      redirect_to @answer.question
     else
-      render @answer.question, notice: "Error"
+      flash.now[:alert] = "yushadha says no"
+      render "questions/show"
     end
-    
   end
-  private
-    def cmnt_params
-      params.require(:comment).permit([:body])
+  def destroy
+    @answer = Answer.find(params[:answer_id])
+    @comment = @answer.comments.find(params[:id])
+    if @comment.destroy
+      flash.now[:notice] = "deleted q"
+      redirect_to @answer.question 
+    else
+      flash.now[:alert] = "Coment deletd!"
+      render "questions/show"
     end
+  end
+private
+  def c_params
+    params.require(:comment).permit([:body])
+  end
 end

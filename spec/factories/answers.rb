@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :answer do
+    body Faker::Company.bs  
     association :question, factory: :question
-    body Faker::Company.bs    
+    association :user, factory: :user
   end
 end

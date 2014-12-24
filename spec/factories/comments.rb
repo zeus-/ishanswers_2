@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :comment do
-    body Faker::Lorem.sentence    
+    association :answer, factory: :answer
+    body Faker::Lorem.sentence
   end
-
 end

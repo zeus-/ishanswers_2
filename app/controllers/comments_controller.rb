@@ -3,21 +3,22 @@ class CommentsController < ApplicationController
    def create
     @answer = Answer.find(params[:answer_id])
     @comment = @answer.comments.create(c_params)
+   #  @comment.user = current_user
     if @comment.save
-      redirect_to @answer.question
+      redirect_to @answer.question, notice: "Yushadha says: 'Yipee!'"
     else
-      flash.now[:alert] = "yushadha says no"
+      flash.now[:alert] = "Yushadha says: 'Error! I cant save!'"
       render "questions/show"
     end
   end
   def destroy
     @answer = Answer.find(params[:answer_id])
     @comment = @answer.comments.find(params[:id])
-    if @comment.destroy
-      flash.now[:notice] = "deleted q"
-      redirect_to @answer.question 
+    if @comment.destroy 
+      # &&@comment.user = current_user
+      redirect_to @answer.question, notice: "Cmnt destroyed!" 
     else
-      flash.now[:alert] = "Coment deletd!"
+      flash.now[:alert] = "Yushadha says: 'No! I will not delete this cmnt"
       render "questions/show"
     end
   end

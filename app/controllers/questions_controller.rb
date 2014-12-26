@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_q, only: [:edit, :update, :destroy, :vote_up, :vote_down]
   def index    
-    @questions = Question.all
+    @questions = Question.recent_ten
   end
   
   def new  
@@ -47,7 +47,7 @@ class QuestionsController < ApplicationController
     if @question.update_attributes(question_params) 
       redirect_to @question, notice: "Updated successfully"
     else
-      flash.now[:error] = "Update failed"
+      flash.now[:alert] = "Update failed"
       render :edit
     end
   end
@@ -56,7 +56,8 @@ class QuestionsController < ApplicationController
     if @question.destroy 
       redirect_to questions_path, notice: "Q deleted through '@question, method: :delete'"
     else
-      render @question, error: "Cant delete this Q" 
+      flash.now[:alert] = "Cant delete this Q"
+      render @question  
     end
   end
 

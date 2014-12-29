@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to questions_path, notice: "Your Q was created successfully"
     else
-      flash.now[:error] = "Please correct the form"
+      flash.now[:alert] = "Please correct the form"
       render :new
     end
   end
@@ -75,7 +75,7 @@ class QuestionsController < ApplicationController
 
   private
     def question_params
-      question_params = params.require(:question).permit([:title, :description, {category_ids: []}])
+      question_params = params.require(:question).permit([:title, :description, {category_ids: []}, :image])
     end
     def find_q
      # @question = Question.find(params[:id])

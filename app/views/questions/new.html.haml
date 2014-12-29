@@ -1,7 +1,3 @@
 %h1 New Question page
 %p post  "questions/:id" = questions#create in questions#new created through resources :questions by the routes file
-- if @question.errors.any?
-  %ul
-    - @question.errors.full_messages.each do |m|
-      %li= m
 = render 'form'

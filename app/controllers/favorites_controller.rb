@@ -13,7 +13,7 @@ class FavoritesController < ApplicationController
   def destroy
     @favorite = current_user.favorites.find(params[:id])
     if @favorite.destroy 
-      redirect_to @question, notice: "Go fuck yourself"
+      redirect_to @question, notice: "Go faq yourself"
     else
       render @question, alert: "your favorite cant be processed"
     end

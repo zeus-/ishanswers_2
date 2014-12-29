@@ -18,6 +18,12 @@
 # Ignore mailer variables
 /config/initializers/email_vars.rb
 
+# Ignore images
+/public/system
+
+# Ignore s3 vars for image uploads
+/config/initializers/s3_vars.rb
+
 # Ignore other unneeded files.
 database.yml
 doc/

@@ -29,11 +29,13 @@ gem 'delayed_job_active_record'
 gem 'sprockets' 
 gem 'bcrypt-ruby', '3.1.2'
 gem 'simple_form', git: 'https://github.com/plataformatec/simple_form.git'
+# Image uploader gems 
 gem 'paperclip', "~> 4.1"
 gem 'aws-sdk', '~> 1.0'
 gem 'carrierwave'
 gem 'rmagick', require: 'RMagick'
 gem 'fog'
+
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'kaminari'
 gem 'cancan'
@@ -51,6 +53,7 @@ group :development, :test do
   gem 'rspec-activemodel-mocks'
 # if having trouble with rspec its install this:
   gem 'rspec-its', '~> 1.0.0.pre'
+  gem 'factory_girl_rails'
 end
 group :development do
   gem 'hirb'
@@ -59,12 +62,10 @@ group :development do
   gem 'letter_opener'
   gem 'interactive_editor'
   gem 'awesome_print'
-  gem 'factory_girl_rails'
 end
 group :test do
   gem 'capybara-webkit'
   gem 'capybara'
-  gem 'factory_girl_rails'
   gem 'simplecov', require: false
 end
 

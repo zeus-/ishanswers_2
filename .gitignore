@@ -19,7 +19,7 @@
 /config/initializers/email_vars.rb
 
 # Ignore images
-/public/system
+/public/uploads
 
 # Ignore s3 vars for image uploads
 /config/initializers/s3_vars.rb

@@ -79,7 +79,8 @@ class QuestionsController < ApplicationController
     end
     def find_q
      # @question = Question.find(params[:id])
-       @question = current_user.questions.find_by_id(params[:id])
+     #  @question = current_user.questions.find_by_id(params[:id])
+       @question = current_user.questions.find(params[:id])
        redirect_to root_path, alert: "Access denied, foo" unless @question
     end
 end

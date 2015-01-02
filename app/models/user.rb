@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Itnclude default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   
   has_many :questions
   has_many :answers
@@ -27,6 +27,23 @@ class User < ActiveRecord::Base
     else
       email
     end
+  end
+  def self.find_or_create_from_twitter(oauth_data)
+    user = User.where(provider: :twitter, uid: oauth_data[:uid]).first
+
+    unless user
+      name = oauth_data["info"]["name"].split(" ")
+      user = User.create!(first_name: name[0], 
+                          last_name: name[1],
+                          password: Devise.friendly_token[0, 20],
+                          provider: :twitter,
+                          uid: oauth_data["uid"])
+    end
+    user
+  end
+
+  def email_required?
+    false
   end
 
 end

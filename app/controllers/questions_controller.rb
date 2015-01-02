@@ -3,7 +3,8 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_q, only: [:edit, :update, :destroy, :vote_up, :vote_down]
   def index    
-    @questions = Question.recent_ten
+    @recent_questions = Question.recent(3)
+    @questions = Question.all
   end
   
   def new  
@@ -40,6 +41,7 @@ class QuestionsController < ApplicationController
 
   def edit
     # renders the edit page for the question passed
+    redirect_to root_path unless can? :edit, @question
   end
 
   def update
@@ -80,7 +82,7 @@ class QuestionsController < ApplicationController
     def find_q
      # @question = Question.find(params[:id])
      #  @question = current_user.questions.find_by_id(params[:id])
-       @question = current_user.questions.find(params[:id])
+       @question = current_user.questions.find_by_id(params[:id])
        redirect_to root_path, alert: "Access denied, foo" unless @question
     end
 end

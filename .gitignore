@@ -24,6 +24,9 @@
 # Ignore s3 vars for image uploads
 /config/initializers/s3_vars.rb
 
+# Ignore twitter api vars
+/config/initializers/api_keys_for_twitter.rb
+
 # Ignore other unneeded files.
 database.yml
 doc/

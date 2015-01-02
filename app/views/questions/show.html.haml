@@ -10,20 +10,25 @@
     Categories (#{ @question.categories.count }):
     = @question.categories.map(&:title).join(", ")
 %p
-  Posted on: #{formatted_date(@question.created_at)}
+  Posted on: #{formatted_date(@question.created_at)} by #{ @question.user.email if @question.user}  
 %p
   = link_to "Edit", edit_question_path(@question)
   |
   \#{link_to "Delete", @question, method: :delete, data: {confirm: "U sure"}}
   |
   \#{link_to "Index", questions_path}
-%p
-  - if @question.image.present?
-    = image_tag @question.image.url(:medium)
+  %br
+- if can? :edit, @question
+  = link_to "canedit", edit_question_path(@question)
+- if can? :destroy, @question
+  = link_to "candelete", @question, method: :delete, data: {confirm: "rlly?"} 
+  %br 
+- if @question.image.present?
+  = image_tag @question.image.url(:medium)
   %br/
-  = succeed "Votes" do
-    %br/
-  Meter: #{@question.vote_count}
+/= succeed "Votes" do
+%p
+  Votes Meter: #{@question.vote_count}
   %br
   -if @question.favorited_users.present?
     Favorited users: #{ @question.favorited_users.map(&:full_name).join(", ") }

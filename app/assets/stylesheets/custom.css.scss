@@ -21,13 +21,16 @@ $blue: blue;
   border-color: black;
 }
 .btn:hover {
-    background-color: grey;
+    background-color: #98AFC7;
   }
 .btn.btn-danger {
   width: 50%;
 }
 .btn.btn-info {
   width: 50%;
+}
+.ish {
+  color: white;
 }
 #vote-btn {
   background-color: #f4e0c7;
@@ -40,7 +43,7 @@ $blue: blue;
 .container {
    color: black;
     a {
-      text-decoration: underline;
+      text-decoration: none;
    }
  }
 abbr {
@@ -62,8 +65,8 @@ body {
 /* Set the fixed height of the footer here */
 #push,
 #footer {
-  height: 60px;
   background-color: #f5f5f5;
+
 }
 
 /* Lastly, apply responsive CSS fixes as necessary */

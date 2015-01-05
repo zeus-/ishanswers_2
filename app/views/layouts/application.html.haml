@@ -14,8 +14,9 @@
             %span.sr-only Toggle navigation
             %span.icon-bar
           %a.navbar-brand{:href=> "#"} 
-            %strong 
-              %bold Ishanswers 2
+            %strong
+              .ish
+                %bold Ishanswers 2
         #navbar.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li
@@ -44,6 +45,8 @@
       / = flash[:alert] || flash[:notice]
       = flash_messages #check app_helper for da method 2 da madness
       = yield
-    #footer
-      .container 
-        %p Copyright 2014 Ishanswers 
+    .footer.navbar-fixed-bottom
+      #footer
+        .container 
+          %p Copyright 2014 Ishanswers 
+

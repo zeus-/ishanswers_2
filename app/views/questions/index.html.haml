@@ -3,7 +3,7 @@
   %h2 Recent Questions
   - cache "recent questions" do
     - @recent_questions.each do |question|
-      = cache ["recent", question] do
+      = cache ["recents", question] do
         .droppy.well.col-md-12.questions{:id =>"recent_#{dom_id(question)}"}
           %h2= link_to question.title, question_path(question)
           %p= question.description

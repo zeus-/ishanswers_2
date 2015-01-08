@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   
   has_many :questions
   has_many :answers
+  has_many :comments
   
   has_many :votes, dependent: :destroy
   has_many :voted_questions, through: :votes, source: :question

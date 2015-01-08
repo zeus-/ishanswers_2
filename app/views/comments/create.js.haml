@@ -1,0 +1,3 @@
+$("#comment_body").val("");
+$(".comments").prepend("#{j render 'comment', comment: @comment}");
+$("##{dom_id(@comment)}").hide().fadeIn(500);

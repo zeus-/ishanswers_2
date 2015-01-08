@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
   validates :body, presence: true, length: {minimum: 3} 
   belongs_to :answer
+  belongs_to :user
   scope :recent_ten, -> { order("created_at DESC").limit(10) } 
   def sanitize
     self.body.squeeze!(" ").strip!

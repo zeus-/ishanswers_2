@@ -27,9 +27,12 @@ class QuestionsController < ApplicationController
   def show
     # renders the show page for the question passed
     @question = Question.find(params[:id] || params[:question_id])
-    @answer = Answer.new
+    @answer = Answer.new 
     @answers = @question.answers.ordered_by_creation
     #prevent undefined method `vote_for' for nil:NilClass when user is not signed in
+    #changed jan 6
+    @comment = Comment.new 
+    @comments = @answer.comments.recent_ten
     if user_signed_in? 
       @vote = current_user.vote_for(@question) || Vote.new 
       @favorite = current_user.favorite_for(@question) || Favorite.new

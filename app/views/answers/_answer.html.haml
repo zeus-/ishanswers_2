@@ -5,3 +5,11 @@
       %p= answer.created_at
     .col-sm-4.col-md-4.col-xs-4
       .pull-right= button_to "X", question_answer_path(@question, answer), method: :delete, class: "btn btn-danger", style: "width: 100%", data: {confirm: "Are you sure"}, remote: true if answer.user == current_user
+    .col-sm-8.col-md-8.col-xs-8
+      =form_for [answer, @comment], remote: true do |f| 
+        =f.text_area :body
+        =f.submit "add cmnt!", class: "btn btn-default"
+    .col-sm-8.col-md-8.col-xs-8
+      .comments
+        -@comments.each do |comment|
+          -render "/comments/comment", comment: comment  

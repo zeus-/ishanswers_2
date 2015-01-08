@@ -2,9 +2,12 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_q
   before_action :right_user
+
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
+    @comment = Comment.new
+    @comments = @answer.comments.recent_ten
     respond_to do |format|
       if @answer.save
         #Ishanswers2Mailer.notify_question_owner(@answer).deliver
@@ -16,7 +19,6 @@ class AnswersController < ApplicationController
         format.js { render js: "alert('Error, friend');" }
       end
     end
-    #code broke when implementibg partial render @answers in view :(
   end
   def destroy
     @answer = @question.answers.find(params[:id])
@@ -33,6 +35,9 @@ class AnswersController < ApplicationController
   private
     def answer_params
       params.require(:answer).permit([:body])
+    end
+    def comment_params
+      params.require(:comment).permit([:body])
     end
     def find_q
       @question = Question.find(params[:question_id])

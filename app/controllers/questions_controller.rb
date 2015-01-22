@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_q, only: [:edit, :update, :destroy, :vote_up, :vote_down]
   def index    
-    @recent_questions = Question.recent(3)
+    @recent_questions = Question.recent(10)
     @questions = Question.all
   end
   
@@ -23,7 +23,7 @@ class QuestionsController < ApplicationController
       render :new
     end
   end
-
+    
   def show
     # renders the show page for the question passed
     @question = Question.find(params[:id] || params[:question_id])
@@ -33,6 +33,7 @@ class QuestionsController < ApplicationController
     #changed jan 6
     @comment = Comment.new 
     @comments = @answer.comments.recent_ten
+    @question.increment_view_count
     if user_signed_in? 
       @vote = current_user.vote_for(@question) || Vote.new 
       @favorite = current_user.favorite_for(@question) || Favorite.new
@@ -77,7 +78,8 @@ class QuestionsController < ApplicationController
    # session[:has_voted] = true
    # redirect_to @question
   # end
-
+  
+   
   private
     def question_params
       question_params = params.require(:question).permit([:title, :description, {category_ids: []}, :image])

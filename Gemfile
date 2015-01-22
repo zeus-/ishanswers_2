@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '2.1.2'
+ruby '2.0.0'
 gem 'rails'
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -54,6 +54,9 @@ group :development, :test do
 # if having trouble with rspec its install this:
   gem 'rspec-its', '~> 1.0.0.pre'
   gem 'factory_girl_rails'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'byebug'
 end
 group :development do
   gem 'hirb'

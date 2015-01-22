@@ -1,4 +1,3 @@
-require 'rails_helper'
 require 'spec_helper'
 
 feature "creating an answer for a q" do

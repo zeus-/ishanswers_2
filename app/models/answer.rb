@@ -10,5 +10,10 @@ class Answer < ActiveRecord::Base
   def capitalize
     self.body.capitalize!
   end
+  
+  #added in bootcamp
+  def user_first_name
+    user.first_name if user
+  end
 
 end

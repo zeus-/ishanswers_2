@@ -9,6 +9,8 @@
           %p= question.description
           %p
             Created On: #{formatted_date(question.created_at)}
+          %p
+            Created by: #{ question.user_first_name }
 
 .col-md-5.col-md-offset-0
   %br
@@ -21,3 +23,5 @@
           %p= question.description
           %p
             Created On: #{formatted_date(question.created_at)}
+          %p
+            Created by: #{ question.user_first_name }

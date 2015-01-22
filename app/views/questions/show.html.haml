@@ -6,6 +6,10 @@
   %b
     = @question.description
 %p
+  Created by: #{@question.user_first_name}
+%p
+  Views: #{@question.view_count}
+%p
   - if @question.categories.present?
     Categories (#{ @question.categories.count }):
     = @question.categories.map(&:title).join(", ")

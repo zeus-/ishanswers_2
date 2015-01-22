@@ -4,9 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   
-  has_many :questions
-  has_many :answers
-  has_many :comments
+  has_many :questions, dependent: :nullify
+  has_many :answers, dependent: :nullify
+  has_many :comments, dependent: :nullify
   
   has_many :votes, dependent: :destroy
   has_many :voted_questions, through: :votes, source: :question
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   end
   
   def vote_for(question)
-    Vote.where(question: question, user:  self).first
+    Vote.where(question: question, user: self).first
   end
   
   def full_name

@@ -23,6 +23,7 @@ end
 gem 'thin'
 gem 'omniauth-twitter'
 gem 'haml-rails'
+gem 'slim-rails'
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.1.1.0'
 gem 'delayed_job_active_record'

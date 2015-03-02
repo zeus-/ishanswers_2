@@ -15,6 +15,10 @@ class Question < ActiveRecord::Base
  
   has_many :favorites, dependent: :destroy
   has_many :favorited_users, through: :favorites, source: :user
+
+  #added in bootcamp
+  has_many :likes, dependent: :nullify
+  has_many :liked_users, through: :likes, source: :user
   
   validates :title, presence: true, uniqueness: true 
   validates_presence_of :description, message: "must be present"
@@ -45,6 +49,10 @@ class Question < ActiveRecord::Base
     self.view_count ||= 0
     self.view_count += 1
     self.save
+  end
+  #bootcammp
+  def likes_count
+    likes.count
   end
   private
     def capitalize_title

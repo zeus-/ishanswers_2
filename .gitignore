@@ -28,7 +28,7 @@
 /config/initializers/api_keys_for_twitter.rb
 
 # Ignore other unneeded files.
-database.yml
+/config/database.yml
 doc/
 *.swp
 *~

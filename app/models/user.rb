@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
 
   has_many :favorites, dependent: :destroy
   has_many :favorited_questions, through: :favorites, source: :question
+  
+  #added in bootcamp
+  has_many :likes, dependent: :nullify
+  has_many :liked_questions, through: :likes, source: :question 
 
   def favorite_for(q)
     Favorite.where(question: q, user: self).first
